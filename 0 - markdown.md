@@ -10,7 +10,7 @@ Also provide these things:
 
 # Approach
 
-<!-- Describe your approach to solving the problem. -->
+<!-- Describe your approach to solving the problem in bullet points. -->
 
 # Pseudo Code
 
