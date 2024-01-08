@@ -45,3 +45,15 @@ class Solution:
 
         # Return the final maximum length
         return max_length
+
+
+sol = Solution()
+s = "ABAB"
+k = 2
+print(sol.characterReplacement(s, k))
+s = "AABABBA"
+k = 1
+print(sol.characterReplacement(s, k))
+s = "ABBB"
+k = 2
+print(sol.characterReplacement(s, k))

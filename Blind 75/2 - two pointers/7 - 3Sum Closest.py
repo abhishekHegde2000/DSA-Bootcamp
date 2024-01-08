@@ -20,7 +20,6 @@ Explanation: The sum that is closest to the target is 0. (0 + 0 + 0 = 0).
  
 '''
 
-
 from typing import List
 
 

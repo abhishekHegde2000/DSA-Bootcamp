@@ -24,23 +24,24 @@ Explanation: You must delete one element.
 '''
 
 
+from typing import List
+
+
 class Solution:
-    def longestSubarray(self, nums: List[int]) -> int:
-        n = len(nums)
-
+    def longestSubarrayWithMaxOnes(self, nums: List[int], maxFlips: int) -> int:
         left = 0
-        zeros = 0
-        ans = 0
-
-        for right in range(n):
+        zerosCount = 0
+        maxLength = 0
+        # Iterate over the array
+        for right in range(len(nums)):
+            # If we encounter a 0, increment zerosCount
             if nums[right] == 0:
-                zeros += 1
-
-            while zeros > 1:
+                zerosCount += 1
+            # If zerosCount exceeds maxFlips, move the left end of the window forward
+            if zerosCount > maxFlips:
                 if nums[left] == 0:
-                    zeros -= 1
+                    zerosCount -= 1
                 left += 1
-
-            ans = max(ans, right - left + 1 - zeros)
-
-        return ans - 1 if ans == n else ans
+            # Update maxLength
+            maxLength = max(maxLength, right - left + 1)
+        return maxLength

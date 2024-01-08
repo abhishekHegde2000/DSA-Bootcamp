@@ -33,28 +33,38 @@ Explanation: The entire string is removed, so we return an empty string.
 
 
 class Solution:
-    def removeStars(self, star_string: str) -> str:
-        """Removes all consecutive stars from a string.
+    def removeConsecutiveStars(self, inputString: str) -> str:
+        # Initialize an empty stack
+        characterStack = []
+        # Push the first character of the string onto the stack
+        characterStack.append(inputString[0])
+        print(f"Pushed first character onto stack: {inputString[0]}")
 
-        Args:
-            star_string: The string containing stars.
+        # Iterate over the rest of the string
+        for i in range(1, len(inputString)):
+            currentCharacter = inputString[i]
 
-        Returns:
-            The string with all consecutive stars removed.
-        """
+            # If the current character is not a star, push it onto the stack
+            if currentCharacter != "*":
+                characterStack.append(currentCharacter)
+                print(
+                    f"Pushed non-star character onto stack: {currentCharacter}")
+            # If the current character is a star and the top of the stack is not a star, push it onto the stack
+            elif characterStack and characterStack[-1] != "*":
+                characterStack.append(currentCharacter)
+                print(
+                    f"Pushed non-consecutive star onto stack: {currentCharacter}")
 
-        character_stack = []  # Stack to store characters
-        character_stack.append(star_string[0])  # Push the first character
+        # Join the characters in the stack to get the final string
+        finalString = "".join(characterStack)
+        print(f"Final string: {finalString}")
+        return finalString
 
-        for i in range(1, len(star_string)):
-            current_char = star_string[i]
 
-            if current_char != "*":
-                character_stack.append(current_char)
-                # print(f"Current stack: {character_stack}")
-            else:
-                if character_stack and character_stack[-1] != "*":
-                    character_stack.append(current_char)
-                    # print(f"Current stack: {character_stack}")
-
-        return "".join(character_stack)  # Join characters in the stack
+sol = Solution()
+s = "leet**cod*e"
+print(sol.removeStars(s))
+s = "erase*****"
+print(sol.removeStars(s))
+s = "*****"
+print(sol.removeStars(s))

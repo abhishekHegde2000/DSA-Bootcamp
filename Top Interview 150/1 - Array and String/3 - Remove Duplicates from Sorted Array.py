@@ -58,6 +58,30 @@ class Solution:
         return unique_count
 
 
+class Solution:
+    def removeDuplicates(self, nums: List[int]) -> int:
+        i = 0
+        while i < len(nums):
+            current_num = nums[i]
+            print(f"Checking for duplicates of {current_num}")
+            while current_num in nums[i+1:]:
+                print(f"Duplicate of {current_num} found. Removing it.")
+                nums.remove(current_num)
+            i += 1
+        print(f"Final array: {nums}")
+        return len(nums)
+
+
+# example usage
+sol = Solution()
+nums = [1, 1, 2]
+print(sol.removeDuplicates(nums))
+print(nums)
+nums = [0, 0, 1, 1, 1, 2, 2, 3, 3, 4]
+print(sol.removeDuplicates(nums))
+print(nums)
+
+
 # example usage
 sol = Solution()
 nums = [1, 1, 2]
