@@ -38,18 +38,28 @@ class ListNode:
 
 class Solution:
     def mergeTwoLists(self, list1: Optional[ListNode], list2: Optional[ListNode]) -> Optional[ListNode]:
-        tail = dummy = ListNode()
+        # Step 1: Initialize a dummy node and a tail node pointing to the dummy node
+        dummy_node = ListNode()
+        tail_node = dummy_node
+
+        # Step 2: While both lists are not empty, compare the first node of each list, append the smaller node to the tail node, and move the pointer of the smaller node to the next node
         while list1 and list2:
             if list1.val < list2.val:
-                tail.next, list1 = list1, list1.next
+                tail_node.next = list1
+                list1 = list1.next
             else:
-                tail.next, list2 = list2, list2.next
-            tail = tail.next
+                tail_node.next = list2
+                list2 = list2.next
+            tail_node = tail_node.next
+
+        # Step 3: If one list becomes empty before the other, append the remaining nodes of the non-empty list to the tail node
         if list1:
-            tail.next = list1
+            tail_node.next = list1
         else:
-            tail.next = list2
-        return dummy.next
+            tail_node.next = list2
+
+        # Step 4: Return the next node of the dummy node, which is the head node of the new list
+        return dummy_node.next
 
 
 class Solution:
