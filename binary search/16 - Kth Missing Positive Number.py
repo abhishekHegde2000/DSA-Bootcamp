@@ -23,23 +23,23 @@ Explanation: The missing positive integers are [5,6,7,...]. The 2nd missing posi
 from typing import List
 
 
-class Solution:
-    def findKthPositive(self, arr: List[int], k: int) -> int:
-        missing_number_count = 0
-        current_number = 1
-        arr_index = 0
-        while True:
-            print(f"Checking if {current_number} is missing")
-            if arr_index < len(arr) and arr[arr_index] == current_number:
-                print(f"{current_number} is not missing")
-                arr_index += 1
-            else:
-                print(f"{current_number} is missing")
-                missing_number_count += 1
-                if missing_number_count == k:
-                    print(f"Found the {k}th missing number: {current_number}")
-                    return current_number
-            current_number += 1
+# class Solution:
+#     def findKthPositive(self, arr: List[int], k: int) -> int:
+#         missing_number_count = 0
+#         current_number = 1
+#         arr_index = 0
+#         while True:
+#             print(f"Checking if {current_number} is missing")
+#             if arr_index < len(arr) and arr[arr_index] == current_number:
+#                 print(f"{current_number} is not missing")
+#                 arr_index += 1
+#             else:
+#                 print(f"{current_number} is missing")
+#                 missing_number_count += 1
+#                 if missing_number_count == k:
+#                     print(f"Found the {k}th missing number: {current_number}")
+#                     return current_number
+#             current_number += 1
 
 
 class Solution:
