@@ -80,3 +80,10 @@ class Solution:
         backtrack(0)
         # Return solutions
         return solutions
+
+
+sol = Solution()
+
+# [[".Q..","...Q","Q...","..Q."],["..Q.","Q...","...Q",".Q.."]]
+print(sol.solveNQueens(4))
+print(sol.solveNQueens(1))  # [["Q"]]

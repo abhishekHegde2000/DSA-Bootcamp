@@ -31,9 +31,6 @@ Constraints:
 from typing import List
 
 
-from typing import List
-
-
 class Solution:
     def combine(self, n: int, k: int) -> List[List[int]]:
         # Initialize an empty list to store the combinations

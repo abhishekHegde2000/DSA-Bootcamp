@@ -44,32 +44,47 @@ from typing import List
 
 class Solution:
     def combinationSum2(self, candidates: List[int], target: int) -> List[List[int]]:
-
-        res = []
+        # Initialize an empty list to store the combinations
+        combinations = []
+        # Sort the candidates list to handle duplicates
         candidates.sort()
 
-        def backtrack(i, curr, target):
+        def backtrack(currentIndex, currentCombination, remainingTarget):
+            # Print the current state of variables for debugging
+            print(f"Current Index: {currentIndex}, Current Combination: {
+                  currentCombination}, Remaining Target: {remainingTarget}")
 
-            if target == 0:
-                res.append(curr[:])
-
-            if target < 0:
+            # If the remaining target is 0, append the current combination to the combinations
+            if remainingTarget == 0:
+                combinations.append(currentCombination.copy())
                 return
 
-            prev = -1
+            # If the remaining target is less than 0, return
+            if remainingTarget < 0:
+                return
 
-            for i in range(len(candidates)):
+            # Initialize a variable to keep track of the previous candidate to handle duplicates
+            previousCandidate = -1
 
-                if candidates[i] == prev:
+            for i in range(currentIndex, len(candidates)):
+                # If the current candidate is equal to the previous candidate, continue to the next iteration to avoid duplicates
+                if candidates[i] == previousCandidate:
                     continue
 
-                curr.append(candidates[i])
-                backtrack(i + 1, curr, target-candidates[i])
-                curr.pop()
-                prev = candidates[i]
+                # Add the current candidate to the current combination
+                currentCombination.append(candidates[i])
+                # Recursively call backtrack with the next index and the updated remaining target
+                backtrack(i + 1, currentCombination,
+                          remainingTarget - candidates[i])
+                # Remove the last element from the current combination
+                currentCombination.pop()
+                # Update the previous candidate
+                previousCandidate = candidates[i]
 
+        # Call backtrack with initial parameters
         backtrack(0, [], target)
-        return res
+        # Return the combinations
+        return combinations
 
 
 sol = Solution()
