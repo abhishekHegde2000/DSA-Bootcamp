@@ -104,6 +104,33 @@ class Solution:
         return dfs(0)
 
 
+class Solution:
+    def rob(self, houses: List[int]) -> int:
+
+        if len(houses) == 1:
+            return houses[0]
+
+        def solve(houses):
+
+            prev = houses[0]
+            prev2 = 0
+
+            for i in range(1, len(houses)):
+
+                pick = houses[i] if i < 2 else houses[i] + prev2
+
+                skip = 0 + prev
+
+                curr = max(pick, skip)
+
+                prev2 = prev
+                prev = curr
+
+            return prev
+
+        return max(houses[0], solve(houses[1:]), solve(houses[:-1]))
+
+
 sol = Solution()
 
 print(sol.rob([2, 3, 2]))  # 3

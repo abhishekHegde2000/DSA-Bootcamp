@@ -34,40 +34,77 @@ Constraints:
 
 
 class Solution:
-    def climbStairs(self, total_steps: int) -> int:
-        # Initialize memoization list
-        memo = [0] * (total_steps + 1)
+    def climbStairs(self, total_stairs: int) -> int:
+        # Initialize previous_step and two_steps_back to 1
+        previous_step, two_steps_back = 1, 1
+        print(
+            f"Initial values - Previous step: {previous_step}, Two steps back: {two_steps_back}")
 
-        def calculate_ways(current_step):
-            print(f"Current step: {current_step}")
+        # For each number of stairs from 2 to total_stairs
+        for _ in range(total_stairs - 1):
+            # Calculate the number of ways to climb the current number of stairs
+            print(f"Calculating the number of ways to climb the current number of stairs")
+            temp = previous_step
+            previous_step = previous_step + two_steps_back
+            two_steps_back = temp
+            print(
+                f"Updated values - Previous step: {previous_step}, Two steps back: {two_steps_back}")
 
-            # If the current step is beyond total steps, return 0
-            if current_step > total_steps:
-                print(
-                    f"Step {current_step} is beyond total steps. Returning 0.")
-                return 0
+        # Return the number of ways to climb total_stairs
+        print(f"Returning the number of ways to climb {
+              total_stairs} stairs: {previous_step}")
+        return previous_step
 
-            # If the current step is the final step, return 1
-            if current_step == total_steps:
-                print(f"Step {current_step} is the final step. Returning 1.")
-                return 1
 
-            # If the number of ways to reach the current step is already calculated, return it
-            if memo[current_step] > 0:
-                print(f"Number of ways to reach step {
-                      current_step} is already calculated. Returning {memo[current_step]}.")
-                return memo[current_step]
+class Solution:
+    def climbStairs(self, total_stairs: int) -> int:
+        # If total_stairs is less than 3, return total_stairs
+        print(f"Total stairs is {
+              total_stairs}, which is less than 3, returning {total_stairs}")
+        if total_stairs < 3:
+            return total_stairs
 
-            # Calculate the number of ways to reach the current step
-            memo[current_step] = calculate_ways(
-                current_step + 1) + calculate_ways(
-                    current_step + 2)
-            print(f"Total ways to reach step {
-                  current_step}: {memo[current_step]}")
-            return memo[current_step]
+        # Initialize a list to store the number of ways to climb each number of stairs
+        print(f"Initializing a list to store the number of ways to climb each number of stairs")
+        ways_to_climb = [None for _ in range(total_stairs+1)]
+        ways_to_climb[0] = 0
+        ways_to_climb[1] = 1
+        ways_to_climb[2] = 2
+        # For each number of stairs from 3 to total_stairs, calculate the number of ways to climb that number of stairs
+        for stairs in range(3, total_stairs+1):
+            print(f"Calculating the number of ways to climb {stairs} stairs")
+            ways_to_climb[stairs] = ways_to_climb[stairs-1] + \
+                ways_to_climb[stairs-2]
+            print(f"The number of ways to climb {
+                  stairs} stairs is {ways_to_climb[stairs]}")
 
-        # Call calculate_ways with the initial step
-        return calculate_ways(0)
+        # Return the number of ways to climb total_stairs
+        print(f"Returning the number of ways to climb {
+              total_stairs} stairs: {ways_to_climb[total_stairs]}")
+        return ways_to_climb[total_stairs]
+
+
+class Solution:
+    def climbStairs(self, total_stairs: int) -> int:
+        # Initialize a dynamic programming list with -1 for each stair
+        print(f"Initializing a dynamic programming list with -1 for each stair")
+        dp = [-1 for stair in range(total_stairs+1)]
+
+        # Set the number of ways to climb 0 stairs and 1 stair to 1
+        print(f"Setting the number of ways to climb 0 stairs and 1 stair to 1")
+        dp[0] = 1
+        dp[1] = 1
+
+        # For each number of stairs from 2 to total_stairs, calculate the number of ways to climb that number of stairs
+        for stair in range(2, total_stairs+1):
+            print(f"Calculating the number of ways to climb {stair} stairs")
+            dp[stair] = dp[stair-1] + dp[stair-2]
+            print(f"The number of ways to climb {stair} stairs is {dp[stair]}")
+
+        # Return the number of ways to climb total_stairs
+        print(f"Returning the number of ways to climb {
+              total_stairs} stairs: {dp[total_stairs]}")
+        return dp[total_stairs]
 
 
 sol = Solution()

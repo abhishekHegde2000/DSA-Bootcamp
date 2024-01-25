@@ -32,54 +32,75 @@ Constraints:
 
 from typing import List
 
-
-from typing import List
-
-
-class Solution:
-    def rob(self, nums: List[int]) -> int:
-        previous_robbery, current_robbery = 0, 0
-
-        # Iterate over each house in the list
-        for current_house_money in nums:
-            print(f"Current house money: {current_house_money}")
-
-            # Calculate the maximum amount of money that can be robbed if this house is robbed
-            new_robbery = max(previous_robbery +
-                              current_house_money, current_robbery)
-            print(f"New robbery: {new_robbery}")
-
-            # Update previous_robbery and current_robbery
-            previous_robbery = current_robbery
-            print(f"Previous robbery: {previous_robbery}")
-            current_robbery = new_robbery
-            print(f"Current robbery: {current_robbery}")
-
-        # Return the maximum amount of money that can be robbed from all houses
-        return current_robbery
+# Memoization Solution
 
 
 class Solution:
     def rob(self, nums: List[int]) -> int:
-        def dfs(index, total_robbed):
-            print(f"Current index: {index}, Total robbed: {total_robbed}")
 
-            # If the current index is out of bounds, return the total amount of money robbed so far
-            if index >= len(nums):
-                print(f"Index {index} is out of bounds. Returning {
-                      total_robbed}.")
-                return total_robbed
+        dp = [-1 for house in range(len(nums))]
 
-            # Calculate the maximum amount of money that can be robbed by either skipping the current house or robbing the current house
-            skip_current_house = dfs(index + 1, total_robbed)
-            print(f"Skip current house: {skip_current_house}")
-            rob_current_house = dfs(index + 2, total_robbed + nums[index])
-            print(f"Rob current house: {rob_current_house}")
+        def dfs(index):
 
-            return max(skip_current_house, rob_current_house)
+            if dp[index] != -1:
+                return dp[index]
 
-        # Call dfs with the initial index and the initial total amount of money robbed
-        return dfs(0, 0)
+            if index < 0:
+                return 0
+
+            if index == 0:
+                return nums[0]
+
+            pick = nums[index] + dfs(index - 2)
+            skip = dfs(index - 1)
+
+            dp[index] = max(pick, skip)
+
+            return dp[index]
+
+        return dfs(len(nums) - 1)
+
+# Tabulation Solution
+
+
+class Solution:
+    def rob(self, nums: List[int]) -> int:
+
+        dp = [-1 for house in range(len(nums))]
+
+        dp[0] = nums[0]
+
+        for index in range(1, len(nums)):
+
+            pick = nums[index] if index < 2 else nums[index] + dp[index - 2]
+
+            skip = 0 + dp[index - 1]
+
+            dp[index] = max(pick, skip)
+
+        return dp[len(nums) - 1]
+
+# SPACE OPTIMIZED TABULATION SOLUTION
+
+
+class Solution:
+    def rob(self, nums: List[int]) -> int:
+
+        prev = nums[0]
+        prev2 = 0
+
+        for i in range(1, len(nums)):
+
+            pick = nums[i] if i < 2 else nums[i] + prev2
+
+            skip = 0 + prev
+
+            curr = max(pick, skip)
+
+            prev2 = prev
+            prev = curr
+
+        return prev
 
 
 sol = Solution()
