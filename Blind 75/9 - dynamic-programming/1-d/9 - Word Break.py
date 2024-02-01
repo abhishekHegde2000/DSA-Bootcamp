@@ -36,17 +36,49 @@ from typing import List
 
 class Solution:
     def wordBreak(self, s: str, wordDict: List[str]) -> bool:
-        def backtrack(start):
-            if start == len(s):
+        dp = [False] * (len(s) + 1)
+        dp[len(s)] = True
+
+        for i in range(len(s) - 1, -1, -1):
+            for w in wordDict:
+                if (i + len(w)) <= len(s) and s[i: i + len(w)] == w:
+                    dp[i] = dp[i + len(w)]
+                if dp[i]:
+                    break
+
+        return dp[0]
+
+
+class Solution:
+    def wordBreak(self, s: str, wordDict: List[str]) -> bool:
+        # Initialize a memoization dictionary
+        memo = {}
+
+        def backtrack(start_index):
+            # If the starting index is in the memo, return the stored result
+            if start_index in memo:
+                return memo[start_index]
+
+            # If the starting index is equal to the length of s, return True
+            if start_index == len(s):
                 return True
 
+            # Iterate over each word in the word dictionary
             for word in wordDict:
-                if s.startswith(word, start):
-                    if backtrack(start + len(word)):
+                # If the substring of s starting at the current index is equal to the current word
+                if s.startswith(word, start_index):
+                    # Recursively call backtrack with the new starting index
+                    if backtrack(start_index + len(word)):
+                        # Store the result in the memo and return True
+                        memo[start_index] = True
                         return True
 
+            # If no word in the dictionary matches the substring of s starting at the current index
+            # Store the result in the memo and return False
+            memo[start_index] = False
             return False
 
+        # Call backtrack with a starting index of 0
         return backtrack(0)
 
 

@@ -27,3 +27,9 @@ write your pseudo code here with meaningful sentences
 <!-- Add your space complexity here, e.g. $$O(n)$$-->
 
 # Code
+
+Blind 75: [https://leetcode.com/list/oizxjoit](https://leetcode.com/list/oizxjoit)
+Grind 169: [https://leetcode.com/list/rabvlt31](https://leetcode.com/list/rabvlt31)
+Grind 75: [https://leetcode.com/list/rab78cw1](https://leetcode.com/list/rab78cw1)
+Neetcode 150: [https://leetcode.com/list/rr2ss0g5](https://leetcode.com/list/rr2ss0g5)
+SQL 45: [https://leetcode.com/list/o2qifkts](https://leetcode.com/list/o2qifkts)

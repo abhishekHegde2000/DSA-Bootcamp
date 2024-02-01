@@ -77,6 +77,27 @@ class Solution:
         return result
 
 
+class Solution:
+    def combinationSum(self, candidates: List[int], target: int) -> List[List[int]]:
+        result = []
+
+        def depthFirstSearch(index, currentCombination, remainingSum):
+            if remainingSum == 0:
+                result.append(currentCombination.copy())
+                return
+            if index >= len(candidates) or remainingSum < 0:
+                return
+
+            currentCombination.append(candidates[index])
+            depthFirstSearch(index, currentCombination,
+                             remainingSum - candidates[index])
+            currentCombination.pop()
+            depthFirstSearch(index + 1, currentCombination, remainingSum)
+
+        depthFirstSearch(0, [], target)
+        return result
+
+
 sol = Solution()
 
 print(sol.combinationSum([2, 3, 6, 7], 7))  # [[2,2,3],[7]]
