@@ -62,6 +62,7 @@ class Solution:
 
 # example usage
 sol = Solution()
+print(sol.maxProfit([7, 6, 5, 4, 3, 2, 1]))
 prices = [7, 1, 5, 3, 6, 4]
 print(sol.maxProfit(prices))
 prices = [1, 2, 3, 4, 5]
