@@ -30,7 +30,23 @@ from typing import List
 
 class Solution:
     def merge(self, intervals: List[List[int]]) -> List[List[int]]:
-        pass
+        # sort using start index
+        intervals.sort(key=lambda i: i[0])
+        print(f"intervals = {intervals}")
+
+        output = [intervals[0]]
+
+        for start, end in intervals[1:]:
+
+            # check for overlap to the last interval in the output
+            if output[-1][1] >= start:
+                # [1 , 3] [2, 6] = [1,6]
+                output[-1][1] = max(output[-1][1], end)
+
+            else:
+                output.append([start, end])
+
+        return output
 
 
 sol = Solution()

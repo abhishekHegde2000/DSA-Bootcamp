@@ -33,11 +33,44 @@ newInterval.length == 2
 '''
 
 from typing import List
+from typing import List
 
 
 class Solution:
-    def insert(self, intervals: List[List[int]], newInterval: List[int]) -> List[List[int]]:
-        pass
+    def insert(self, intervals: List[List[int]], new_interval: List[int]) -> List[List[int]]:
+        # Initialize an empty list to store the final intervals after insertion
+        result_intervals = []
+
+        for index in range(len(intervals)):
+            # Print the current state of variables for debugging
+            print(f"Current interval: {intervals[index]}, New interval: {
+                  new_interval}, Result intervals: {result_intervals}")
+
+            # If the end of new_interval is less than the start of the current interval
+            if new_interval[1] < intervals[index][0]:
+                result_intervals.append(new_interval)
+                print(f"New interval inserted before current interval: {
+                      result_intervals}")
+                return result_intervals + intervals[index:]
+
+            # If the start of new_interval is greater than the end of the current interval
+            elif new_interval[0] > intervals[index][1]:
+                result_intervals.append(intervals[index])
+                print(f"Current interval added to result intervals: {
+                      result_intervals}")
+
+            # If the new_interval overlaps with the current interval
+            else:
+                new_interval[0] = min(new_interval[0], intervals[index][0])
+                new_interval[1] = max(new_interval[1], intervals[index][1])
+                print(f"New interval updated due to overlap: {new_interval}")
+
+        # Append the new_interval to result_intervals after the loop
+        result_intervals.append(new_interval)
+        print(f"New interval added to result intervals after loop: {
+              result_intervals}")
+
+        return result_intervals
 
 
 sol = Solution()
@@ -46,4 +79,3 @@ print(sol.insert([[1, 3], [6, 9]], [2, 5]))  # [[1,5],[6,9]]
 # [[1,2],[3,10],[12,16]]
 print(sol.insert([[1, 2], [3, 5], [6, 7], [8, 10], [12, 16]], [4, 8]))
 print(sol.insert([], [5, 7]))  # [[5,7]]
-print(sol.insert([[1, 5]], [2, 3]))  # [[1,5]]
