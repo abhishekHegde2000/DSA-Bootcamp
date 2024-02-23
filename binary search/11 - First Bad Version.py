@@ -1,4 +1,6 @@
 '''
+https://leetcode.com/problems/first-bad-version/
+
 278. First Bad Version
 Attempted
 Easy

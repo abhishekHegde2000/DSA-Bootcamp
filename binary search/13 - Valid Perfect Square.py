@@ -1,4 +1,6 @@
 '''
+https://leetcode.com/problems/valid-perfect-square/
+
 367. Valid Perfect Square
 
 Given a positive integer num, return true if num is a perfect square or false otherwise.

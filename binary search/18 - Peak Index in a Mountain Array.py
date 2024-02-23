@@ -1,4 +1,6 @@
 '''
+https://leetcode.com/problems/peak-index-in-a-mountain-array/
+
 852. Peak Index in a Mountain Array
 
 An array arr is a mountain if the following properties hold:

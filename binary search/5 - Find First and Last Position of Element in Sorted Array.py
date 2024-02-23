@@ -1,3 +1,7 @@
+'''
+https://leetcode.com/problems/find-first-and-last-position-of-element-in-sorted-array/
+'''
+
 # Approach: Modified binary search to find first and last occurrences
 
 # Pseudocode for search() method:
@@ -15,6 +19,7 @@
 # 3. Call search for last occurrence by passing startIndex=False
 # 4. Add first and last indices to result array
 # 5. Return result array
+
 
 class Solution:
 
