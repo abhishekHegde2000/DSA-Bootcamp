@@ -1,4 +1,5 @@
 '''
+https://leetcode.com/problems/count-negative-numbers-in-a-sorted-matrix/
 
 1351. Count Negative Numbers in a Sorted Matrix
 
@@ -25,6 +26,7 @@ n == grid[i].length
 Follow up: Could you find an O(n + m) solution?
 
 '''
+from typing import List
 
 
 class Solution:
