@@ -1,4 +1,6 @@
 '''
+https://leetcode.com/problems/search-in-rotated-sorted-array/
+
 There is an integer array nums sorted in ascending order (with distinct values).
 
 Prior to being passed to your function, nums is possibly rotated at an unknown pivot index k (1 <= k < nums.length) such that the resulting array is [nums[k], nums[k+1], ..., nums[n-1], nums[0], nums[1], ..., nums[k-1]] (0-indexed). For example, [0,1,2,4,5,6,7] might be rotated at pivot index 3 and become [4,5,6,7,0,1,2].
@@ -35,9 +37,6 @@ class Solution:
         while left_search_pointer <= right_search_pointer:
             # Calculate the middle index
             middle_index = (left_search_pointer + right_search_pointer) // 2
-
-            print(f"Current search range: {left_search_pointer} to {
-                  right_search_pointer}, middle index: {middle_index}")
 
             if nums[middle_index] == target:
                 return middle_index  # Target found
