@@ -1,4 +1,6 @@
 '''
+https://leetcode.com/problems/reverse-linked-list/
+
 206. Reverse Linked List
 
 Given the head of a singly linked list, reverse the list, and return the reversed list.
@@ -28,9 +30,9 @@ from typing import Optional
 
 
 class ListNode:
-    def __init__(self, val=0, next=None):
+    def __init__(self, val=0):
         self.val = val
-        self.next = next
+        self.next = None
 
 
 class Solution:

@@ -1,4 +1,7 @@
 '''
+
+https://leetcode.com/problems/reorder-list/
+
 143. Reorder List
 
 You are given the head of a singly linked-list. The list can be represented as:
@@ -38,7 +41,7 @@ class ListNode:
 
 class Solution:
     def reorderList(self, head: Optional[ListNode]) -> None:
-        slow, fast = head, head.next
+        slow, fast = head, head
 
         while fast and fast.next:
             slow = slow.next
@@ -96,8 +99,8 @@ class Solution:
 
 
 sol = Solution()
-print(sol.reorderList([1, 2, 3, 4, 5]))
-print(sol.reorderList([1, 2, 3, 4]))
+print(sol.reorderList([1, 2, 3, 4, 5]))  # [1, 5, 2, 4, 3]
+print(sol.reorderList([1, 2, 3, 4]))  # [1, 4, 2, 3]
 print(sol.reorderList([1, 2, 3]))
 print(sol.reorderList([1, 2]))
 print(sol.reorderList([1]))

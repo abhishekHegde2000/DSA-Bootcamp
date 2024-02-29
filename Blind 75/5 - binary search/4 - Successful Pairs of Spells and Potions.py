@@ -28,6 +28,8 @@ Explanation:
 Thus, [2,0,2] is returned.
  '''
 
+from typing import List
+
 
 class Solution:
     def successfulPairs(self, spells: List[int], potions: List[int], success_threshold: int) -> List[int]:

@@ -1,4 +1,7 @@
 '''
+https://leetcode.com/problems/odd-even-linked-list/
+
+
 328. Odd Even Linked List
 
 Given the head of a singly linked list, group all the nodes with odd indices together followed by the nodes with even indices, and return the reordered list.
@@ -28,12 +31,14 @@ Constraints:
 The number of nodes in the linked list is in the range [0, 104].
 -106 <= Node.val <= 106
 '''
-
+from typing import Optional
 # Definition for singly-linked list.
-# class ListNode:
-#     def __init__(self, val=0, next=None):
-#         self.val = val
-#         self.next = next
+
+
+class ListNode:
+    def __init__(self, val=0, next=None):
+        self.val = val
+        self.next = next
 
 
 class Solution:
