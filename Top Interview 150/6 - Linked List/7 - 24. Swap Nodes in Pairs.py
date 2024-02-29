@@ -38,4 +38,27 @@ from typing import Optional, ListNode
 
 class Solution:
     def swapPairs(self, head: Optional[ListNode]) -> Optional[ListNode]:
-        pass
+
+        dummy = ListNode(0)
+        dummy.next = head
+        prev, curr = dummy, head
+
+        while curr and curr.next:
+            # save nextpair and second node
+            # 1 - 2 - 3 , 3 should be next pair , 2 should be wsecond pair
+            nextPair = curr.next.next
+            # 1 is at current so second should be 2
+            second = curr.next
+
+            # swap the position
+            second.next = curr
+            # prev is pointing to 1 , but now that we have changed the position,
+            prev.next = second
+            # 1 is still pooint to 2 so its next should point to 3
+            curr.next = nextPair
+
+            # the swap starts from nextPair, so at 3 we should begin
+            prev = curr
+            curr = nextPair
+
+        return dummy.next
