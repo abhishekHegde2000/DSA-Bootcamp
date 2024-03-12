@@ -1,4 +1,6 @@
 '''
+https://leetcode.com/problems/rotate-array/
+
 Given an integer array nums, rotate the array to the right by k steps, where k is non-negative.
 
  
@@ -22,6 +24,21 @@ rotate 2 steps to the right: [3,99,-1,-100]
 '''
 
 
+class Solution:
+    def rotate(self, nums: List[int], k: int) -> None:
+        # Calculate the number of steps we actually need to take
+        k = k % len(nums)
+
+        # Reverse the entire array
+        nums.reverse()
+
+        # Reverse the first k elements
+        nums[:k] = reversed(nums[:k])
+
+        # Reverse the remaining elements
+        nums[k:] = reversed(nums[k:])
+
+
 class Solution(object):
     def rotate(self, nums, k: int) -> None:
         """
@@ -42,11 +59,7 @@ class Solution(object):
 
 
 sol = Solution()
-nums = [1, 2, 3, 4, 5, 6, 7]
-k = 3
-print(sol.rotate(nums))
-print(nums)
-nums = [-1, -100, 3, 99]
-k = 2
-print(sol.rotate(nums))
-print(nums)
+
+print(sol.rotate([1, 2, 3, 4, 5, 6, 7], 3))  # [5,6,7,1,2,3,4]
+print(sol.rotate([-1, -100, 3, 99], 2))  # [3,99,-1,-100]
+print(sol.rotate([1, 2, 3, 4, 5, 6], 3))  # [4,5,6,1,2,3]
