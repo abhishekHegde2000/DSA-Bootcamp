@@ -1,5 +1,5 @@
 '''
-https://leetcode.com/problems/summary-ranges/description/?envType=study-plan-v2&envId=top-interview-150
+https://leetcode.com/problems/summary-ranges/
 
 228. Summary Ranges
 

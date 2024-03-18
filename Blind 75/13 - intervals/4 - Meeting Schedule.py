@@ -43,16 +43,13 @@ class Solution:
     def canAttendMeetings(self, intervals: List[Interval]) -> bool:
         # sort based on start value
         intervals.sort(key=lambda interval: interval.start)
-        print(f"intervals = {intervals}")
 
-        for i in range(1, len(intervals)):
+        prev = intervals[0]
 
-            i1 = intervals[i-1]
-            i2 = intervals[i]
-
-            if i1.end > i2.start:
+        for interval in intervals[1:]:
+            if interval.start < prev.end:
                 return False
-
+            prev = interval
         return True
 
 

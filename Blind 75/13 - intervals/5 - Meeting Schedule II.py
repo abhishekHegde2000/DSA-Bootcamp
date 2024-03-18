@@ -52,43 +52,25 @@ class Interval(object):
 
 class Solution:
     def minMeetingRooms(self, meetingsList: List[Interval]) -> int:
-        # Initialize an empty list timePoints
-        timePoints = []
+        start = [i.start for i in meetingsList]
+        end = [i.end for i in meetingsList]
 
-        # For each meeting in the meetingsList
-        for meeting in meetingsList:
-            # Extract the start and end times of the meeting
-            start, end = meeting.start, meeting.end
-            print(f"Meeting start: {start}, end: {end}")
+        start.sort()
+        end.sort()
 
-            # Append a tuple (start, 1) to timePoints to represent a meeting starting
-            timePoints.append((start, 1))
-            # Append a tuple (end, -1) to timePoints to represent a meeting ending
-            timePoints.append((end, -1))
+        res, count = 0, 0
+        s, e = 0, 0
 
-        print(f"Time points before sorting: {timePoints}")
+        while s < len(start):
+            if start[s] < end[e]:
+                count += 1
+                s += 1
+            else:
+                count -= 1
+                e += 1
+            res = max(res, count)
 
-        # Sort timePoints based on the time and then the value (1 or -1)
-        timePoints.sort(key=lambda x: (x[0], x[1]))
-
-        print(f"Time points after sorting: {timePoints}")
-
-        # Initialize currentRooms and maxRooms to 0
-        currentRooms = 0
-        maxRooms = 0
-
-        # For each timePoint in timePoints
-        for timePoint in timePoints:
-            # Add the value of timePoint to currentRooms
-            currentRooms += timePoint[1]
-            print(f"Current rooms: {currentRooms}")
-
-            # Update maxRooms to be the maximum of maxRooms and currentRooms
-            maxRooms = max(maxRooms, currentRooms)
-            print(f"Max rooms: {maxRooms}")
-
-        # Return maxRooms as the minimum number of meeting rooms required
-        return maxRooms
+        return res
 
 
 print(Solution().minMeetingRooms([(0, 40), (5, 10), (15, 20)]))  # 2
