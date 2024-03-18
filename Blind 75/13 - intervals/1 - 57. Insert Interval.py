@@ -46,14 +46,14 @@ class Solution:
             print(f"Current interval: {intervals[index]}, New interval: {
                   new_interval}, Result intervals: {result_intervals}")
 
-            # If the end of new_interval is less than the start of the current interval
+            # If the end of new_interval is less than the start of the current interval then insert new_interval before the current interval
             if new_interval[1] < intervals[index][0]:
                 result_intervals.append(new_interval)
                 print(f"New interval inserted before current interval: {
                       result_intervals}")
                 return result_intervals + intervals[index:]
 
-            # If the start of new_interval is greater than the end of the current interval
+            # If the start of new_interval is greater than the end of the current interval then add the current interval to the result_intervals
             elif new_interval[0] > intervals[index][1]:
                 result_intervals.append(intervals[index])
                 print(f"Current interval added to result intervals: {

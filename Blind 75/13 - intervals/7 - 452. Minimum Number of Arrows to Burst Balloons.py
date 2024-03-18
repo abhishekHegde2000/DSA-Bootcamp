@@ -1,5 +1,5 @@
 '''
-https://leetcode.com/problems/minimum-number-of-arrows-to-burst-balloons/?envType=study-plan-v2&envId=top-interview-150
+https://leetcode.com/problems/minimum-number-of-arrows-to-burst-balloons/
 
 452. Minimum Number of Arrows to Burst Balloons
 
@@ -45,7 +45,24 @@ from typing import List
 
 class Solution:
     def findMinArrowShots(self, points: List[List[int]]) -> int:
-        pass
+
+        if not points:
+            return 0
+
+        points.sort()
+
+        prev = points[0]
+
+        count = 1
+
+        for start, end in points[1:]:
+            if start > prev[1]:
+                count += 1
+                prev = [start, end]
+            else:
+                prev[1] = min(prev[1], end)
+
+        return count
 
 
 sol = Solution()
