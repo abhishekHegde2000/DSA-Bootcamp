@@ -32,12 +32,14 @@ Constraints:
 
 */
 
-function createHelloWorld() {
-    return function (...args): string {
+function createHelloWorld(): Function {
+    return function (...args: Number | string | string[]): string {
         return "Hello World";
     };
 }
 
 const helloWorld = createHelloWorld();
 
-console.log(helloWorld()); // "Hello World"
+console.log(helloWorld); // [Function]
+
+console.log(helloWorld(10000)); // "Hello World"
