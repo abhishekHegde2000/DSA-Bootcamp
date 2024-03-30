@@ -66,3 +66,21 @@ delayPromise(promise, 2000).then(console.log); // 42 (after 2 seconds)
  * let t = Date.now()
  * sleep(100).then(() => console.log(Date.now() - t)) // 100
  */
+
+const myPromise: Promise<number> = new Promise((resolve, reject) => {
+    // Perform an asynchronous operation
+    if (Math.random() > 0.5) {
+        resolve(42);
+    } else {
+        reject(new Error("Operation failed"));
+    }
+});
+
+myPromise
+    .then((result) => {
+        // result is inferred as number
+        console.log("Result:", result);
+    })
+    .catch((error) => {
+        console.error("Error:", error);
+    });
