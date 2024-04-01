@@ -77,11 +77,9 @@ Constraints:
 0 <= calls[i].inputs.length <= 10
 
 */
-type F = (...args: any[]) => void;
-
-function debounce(fn: F, t: number): F {
-    let timeoutId: NodeJS.Timeout | null = null;
-    return function (...args: any[]) {
+function debounce(fn, t) {
+    let timeoutId = null;
+    return function (...args) {
         if (timeoutId) {
             clearTimeout(timeoutId);
         }
