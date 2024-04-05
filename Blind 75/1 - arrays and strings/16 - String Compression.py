@@ -1,5 +1,5 @@
 '''
-
+https://leetcode.com/problems/string-compression/
 
 Given an array of characters chars, compress it using the following algorithm:
 
@@ -59,10 +59,12 @@ class Solution:
 
 
 sol = Solution()
+# ["a","2","b","2","c","3"]
 print(sol.compress(["a", "a", "b", "b", "c", "c", "c"]))
-print(sol.compress(["a"]))
+print(sol.compress(["a"]))  # ["a"]
 print(sol.compress(["a", "b", "b", "b", "b",
-      "b", "b", "b", "b", "b", "b", "b", "b"]))
+      "b", "b", "b", "b", "b", "b", "b", "b"]))  # ["a","b","1","2"]
+# ["a","3","b","2","a","2"]
 print(sol.compress(["a", "a", "a", "b", "b", "a", "a"]))
 
 

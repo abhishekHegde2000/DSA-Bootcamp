@@ -1,6 +1,8 @@
 '''
 1071. Greatest Common Divisor of Strings
 
+https://leetcode.com/problems/greatest-common-divisor-of-strings/
+
 For two strings s and t, we say "t divides s" if and only if s = t + ... + t (i.e., t is concatenated with itself one or more times).
 
 Given two strings str1 and str2, return the largest string x such that x divides both str1 and str2.
@@ -35,6 +37,7 @@ class Solution:
             if length_str1 % length or length_str2 % length:
                 print(f"{length} is not a divisor")
                 return False
+            # ex: factor1 = 3, factor2 = 1
             factor1, factor2 = length_str1 // length, length_str2 // length
             result = str1[:length] * \
                 factor1 == str1 and str1[:length] * factor2 == str2
