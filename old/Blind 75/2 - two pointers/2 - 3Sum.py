@@ -76,7 +76,29 @@ class Solution:
         # Convert the set of triplets to a list and return it
         return list(uniqueTriplets)
 
-# Hashmap
+# PreSum sol:
+
+
+class Solution:
+    def threeSum(self, nums: List[int]) -> List[List[int]]:
+        nums.sort()
+        n = len(nums)
+        ans = set()
+
+        for i in range(n - 2):
+            # Skip duplicates
+            if i > 0 and nums[i] == nums[i - 1]:
+                continue
+
+            prefix_sum_map = {}
+            for j in range(i + 1, n):
+                complement = -(nums[i] + nums[j])
+                if complement in prefix_sum_map:
+                    ans.add(tuple(sorted([nums[i], nums[j], complement])))
+                else:
+                    prefix_sum_map[nums[j]] = j
+
+        return list(ans)
 
 
 sol = Solution()
