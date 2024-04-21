@@ -24,7 +24,7 @@ from collections import Counter
 
 
 class Solution:
-    def topKFrequent(nums, k):
+    def topKFrequent(self, nums, k):
         # Create a frequency table
         frequency_table = Counter(nums)
 
@@ -50,5 +50,6 @@ class Solution:
 
 
 sol = Solution()
-print(sol.topKFrequent([1, 1, 1, 2, 2, 3], 2))
-print(sol.topKFrequent([1], 1))
+
+print(sol.topKFrequent([1, 1, 1, 2, 2, 3], 2))  # [1, 2]
+print(sol.topKFrequent([1], 1))  # [1]
