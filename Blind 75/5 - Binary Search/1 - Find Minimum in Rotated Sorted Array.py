@@ -72,28 +72,31 @@ class Solution:
         return current_minimum
 
 
-# class Solution:
-#     def findMin(self, nums: List[int]) -> int:
+class Solution:
+    def findMin(self, nums: List[int]) -> int:
+        # Initialize the start and end pointers
+        start_pointer, end_pointer = 0, len(nums) - 1
 
-#         n = len(nums)
-#         left, right = 0, n - 1
+        while start_pointer < end_pointer:
+            # Calculate the middle index
+            middle_index = start_pointer + (end_pointer - start_pointer) // 2
+            print(f"start_pointer = {start_pointer}, end_pointer = {
+                  end_pointer}, middle_index = {middle_index}")
 
-#         while left < right:
+            # If the middle element is less than the end element, move the end pointer to the middle index
+            if nums[middle_index] < nums[end_pointer]:
+                print(f"nums[middle_index] < nums[end_pointer] : {
+                      nums[middle_index]} < {nums[end_pointer]}")
+                end_pointer = middle_index
+                print(f"end_pointer changed to middle_index >> {end_pointer}")
+            # Otherwise, move the start pointer to the middle index + 1
+            else:
+                start_pointer = middle_index + 1
+                print(
+                    f"start_pointer changed to middle_index + 1 >> {start_pointer}")
 
-#             middle = left + (right - left) // 2
-
-#             print(f"left = {left} and right = {right} and middle = {middle}")
-
-#             if nums[middle] < nums[right]:
-#                 print(f"nums[middle] < numd[right] : {
-#                       nums[middle]}<{nums[right]}")
-#                 right = middle
-#                 print(f"right changed to middle >> {right}")
-#             else:
-#                 left = middle + 1
-#                 print(f"left changed to middle + 1 >> {left}")
-
-#         return nums[left]
+        # The minimum element is at the start pointer
+        return nums[start_pointer]
 
 
 sol = Solution()
