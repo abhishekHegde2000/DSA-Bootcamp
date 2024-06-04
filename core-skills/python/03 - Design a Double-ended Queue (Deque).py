@@ -1,6 +1,8 @@
 '''
 # Design a Double-ended Queue (Deque)
 
+https://github.com/kuroxx/dsa/blob/43ee631f61b4100c88d198f30919444373b33cb6/python3/0-data_structure/implementations/doubly_linked_list.py#L4
+
 https: // neetcode.io/problems/queue
 
 # Problem Statement

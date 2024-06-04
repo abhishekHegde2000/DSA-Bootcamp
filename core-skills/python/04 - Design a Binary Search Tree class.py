@@ -1,4 +1,6 @@
 """
+https://github.com/kuroxx/dsa/blob/43ee631f61b4100c88d198f30919444373b33cb6/python3/0-data_structure/implementations/binary_search_tree.py#L4
+
 Design a Binary Search Tree class.
 
 The TreeMap class represents a Binary Search Tree (BST) and should provide the following functionalities:
@@ -149,3 +151,13 @@ class TreeMap:
             self.inorderTraversal(root_node.left_child, result)
             result.append(root_node.key)
             self.inorderTraversal(root_node.right_child, result)
+
+
+sol = TreeMap()
+
+# Example 1
+sol.insert(1, 2)
+sol.get(1)
+sol.insert(4, 0)
+sol.getMin()
+sol.getMax()
