@@ -73,7 +73,6 @@ However, this method is computationally heavy and will lead to a Time Limit Exce
  logk), where n is the number of elements. This makes the approach impractical for large values of n.
 '''
 
-from typing import List
 import heapq
 
 
@@ -111,7 +110,42 @@ class Solution:
         return result
 
 
+class Solution:
+    def smallestDistancePair(self, nums, k):
+        # Length of the input list
+        n = len(nums)
+        # Max heap to store the k smallest distances (using negative values to simulate max heap)
+        max_heap = []
+
+        # Iterate through each pair of elements in nums
+        for i in range(n):
+            for j in range(i + 1, n):
+                # Calculate the absolute difference between the pair
+                diff = abs(nums[i] - nums[j])
+                print(f"Comparing nums[{i}] = {
+                      nums[i]} and nums[{j}] = {nums[j]}, diff = {diff}")
+
+                # If the heap size is less than k, push the negative difference onto the heap
+                if len(max_heap) < k:
+                    heapq.heappush(max_heap, -diff)
+                    print(f"Heap size < {
+                          k}, pushed {-diff} onto the heap: {max_heap}")
+                else:
+                    # If the current difference is smaller than the largest in the heap, replace it
+                    if -diff > max_heap[0]:
+                        removed = heapq.heappop(max_heap)
+                        heapq.heappush(max_heap, -diff)
+                        print(f"Replaced {
+                              removed} with {-diff} in the heap: {max_heap}")
+
+        # The k-th smallest distance is the largest element in the max heap (negated back to positive)
+        kth_smallest_distance = -max_heap[0]
+        return kth_smallest_distance
+
+
 sol = Solution()
+
+print(sol.smallestDistancePair([2, 3, 1, 4], 3))  # 1
 
 print(sol.smallestDistancePair([1, 3, 1], 1))  # 0
 print(sol.smallestDistancePair([1, 1, 1], 2))  # 0
