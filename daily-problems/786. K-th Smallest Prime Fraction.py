@@ -128,3 +128,4 @@ sol = Solution()
 print(sol.kthSmallestPrimeFraction([1, 2, 3, 5], 3))  # [2, 5]
 print(sol.kthSmallestPrimeFraction([1, 7], 1))  # [1, 7]
 print(sol.kthSmallestPrimeFraction([1, 2, 3, 5], 1))  # [1, 5]
+print(sol.kthSmallestPrimeFraction([1, 2, 3, 5], 2))  # [1, 3]
