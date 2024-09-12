@@ -1,0 +1,75 @@
+'''
+https://leetcode.com/problems/minimum-number-of-operations-to-make-array-xor-equal-to-k/
+
+1798. Minimum Number of Operations to Make Array XOR Equal to Zero
+
+You are given a 0-indexed integer array nums and a positive integer k.
+
+You can apply the following operation on the array any number of times:
+
+Choose any element of the array and flip a bit in its binary representation. Flipping a bit means changing a 0 to 1 or vice versa.
+Return the minimum number of operations required to make the bitwise XOR of all elements of the final array equal to k.
+
+Note that you can flip leading zero bits in the binary representation of elements. For example, for the number (101)2 you can flip the fourth bit and obtain (1101)2.
+
+ 
+
+Example 1:
+
+Input: nums = [2,1,3,4], k = 1
+Output: 2
+Explanation: We can do the following operations:
+- Choose element 2 which is 3 == (011)2, we flip the first bit and we obtain (010)2 == 2. nums becomes [2,1,2,4].
+- Choose element 0 which is 2 == (010)2, we flip the third bit and we obtain (110)2 = 6. nums becomes [6,1,2,4].
+The XOR of elements of the final array is (6 XOR 1 XOR 2 XOR 4) == 1 == k.
+It can be shown that we cannot make the XOR equal to k in less than 2 operations.
+Example 2:
+
+Input: nums = [2,0,2,0], k = 0
+Output: 0
+Explanation: The XOR of elements of the array 
+
+Constraints:
+
+1 <= nums.length <= 105
+0 <= nums[i] <= 106
+0 <= k <= 106
+
+'''
+
+from typing import List
+
+
+class Solution:
+    def minOperations(self, nums: List[int], k: int) -> int:
+        n = len(nums)
+        if n == 1:
+            return 1 if nums[0] != k else 0
+
+        if n == 2:
+            return 1 if nums[0] != k or nums[1] != k else 0
+
+        if n == 3:
+            return 1 if nums[0] != k or nums[1] != k or nums[2] != k else 0
+
+        if n == 4:
+            return 1 if nums[0] != k or nums[1] != k or nums[2] != k or nums[3] != k else 0
+
+        result = float('inf')
+        for i in range(1, n + 1):
+            for j in range(i):
+                subarray = nums[j:i]
+                print(subarray)
+                xor = 0
+                for num in subarray:
+                    xor ^= num
+                print(xor)
+                if xor == k:
+                    result = min(result, n - len(subarray))
+        return result
+
+
+sol = Solution()
+print(sol.minOperations([2, 1, 3, 4], 1))  # 2
+print(sol.minOperations([2, 0, 2, 0], 0))  # 0
+print(sol.minOperations([1, 2, 3, 4], 4))  # 1

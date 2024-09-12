@@ -23,9 +23,6 @@ Output: [0]
 from typing import List
 
 
-from typing import List
-
-
 class Solution:
     def moveZeroes(self, nums: List[int]) -> None:
 
@@ -37,15 +34,6 @@ class Solution:
 
         # Iterate over the list with the right pointer
         for currentIndex in range(listLength):
-            # If the current number is not zero
-            if nums[currentIndex] != 0:
-                # Swap the current number with the number at the nonZeroIndex
-                nums[nonZeroIndex], nums[currentIndex] = nums[currentIndex], nums[nonZeroIndex]
-                # Print the list after the swap
-                print(
-                    f"List after moving non-zero number at index {currentIndex} to index {nonZeroIndex}: {nums}")
-                # Increment the nonZeroIndex
-                nonZeroIndex += 1
 
 
 sol = Solution()
