@@ -7,7 +7,7 @@ You are given an array of characters letters that is sorted in non-decreasing or
 
 Return the smallest character in letters that is lexicographically greater than target. If such a character does not exist, return the first character in letters.
 
- 
+
 
 Example 1:
 
@@ -89,7 +89,7 @@ class Solution:
 ```
 '''
 
-
+from typing import List
 class Solution:
     def nextGreatestLetter(self, letters: List[str], target: str) -> str:
         starting_index = 0  # Initialize starting point of search

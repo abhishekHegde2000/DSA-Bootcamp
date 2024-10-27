@@ -7,7 +7,7 @@ Given a sorted array of distinct integers and a target value, return the index i
 
 You must write an algorithm with O(log n) runtime complexity.
 
- 
+
 
 Example 1:
 
@@ -22,6 +22,8 @@ Example 3:
 Input: nums = [1,3,5,6], target = 7
 Output: 4
 '''
+
+from typing import List
 
 
 class Solution:
@@ -45,5 +47,18 @@ class Solution:
             else:
                 left_pointer = middle_index + 1  # Search in the right subarray
 
+            # if nums[middle_index] < target:
+            #     left_pointer = middle_index + 1
+            # else:
+            #     right_pointer = middle_index - 1
+
         # Target not found, return the insertion point (left_pointer)
         return left_pointer
+
+
+sol = Solution()
+
+print(sol.searchInsert([1, 3, 5, 6], 5))  # 2
+print(sol.searchInsert([1, 3, 5, 6], 2))  # 1
+print(sol.searchInsert([1, 3, 5, 6], 7))  # 4
+print(sol.searchInsert([1, 3, 5, 6], 0))  # 0
