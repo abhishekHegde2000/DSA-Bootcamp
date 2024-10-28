@@ -13,7 +13,7 @@ Given the sorted rotated array nums of unique elements, return the minimum eleme
 
 You must write an algorithm that runs in O(log n) time.
 
- 
+
 
 Example 1:
 
@@ -29,8 +29,8 @@ Example 3:
 
 Input: nums = [11,13,15,17]
 Output: 11
-Explanation: The original array was [11,13,15,17] and it was rotated 4 times. 
- 
+Explanation: The original array was [11,13,15,17] and it was rotated 4 times.
+
  '''
 from typing import List
 
@@ -82,3 +82,5 @@ print(sol.findMin(nums))
 
 nums = [11, 13, 15, 17]
 print(sol.findMin(nums))
+
+print(sol.findMin([5, 4, 3, 2, 1]))

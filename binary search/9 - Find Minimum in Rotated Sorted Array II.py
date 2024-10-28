@@ -13,7 +13,7 @@ Given the sorted rotated array nums that may contain duplicates, return the mini
 
 You must decrease the overall operation steps as much as possible.
 
- 
+
 
 Example 1:
 
@@ -23,7 +23,7 @@ Example 2:
 
 Input: nums = [2,2,2,0,1]
 Output: 0
- 
+
 
 '''
 
@@ -36,28 +36,29 @@ class Solution:
         start = 0
         end = len(nums) - 1
 
-        while start < end:
-            print(f"Start: {start}, End: {end}")
-            # Calculate the middle index
-            middle = (start + end) // 2
-            print(f"Middle: {middle}, Middle Element: {nums[middle]}")
+        c_min = nums[0]
 
-            # Determine the appropriate search direction
-            if nums[middle] > nums[end]:
-                print("Searching right side of array.")
-                start = middle + 1
-            elif nums[middle] < nums[end]:
-                print("Searching left side of array.")
-                end = middle
+        while start <= end:
+
+            if nums[start] <= nums[end]:
+                # Array is not rotated
+                return nums[start]
+
+            mid = (start + end) // 2
+
+            c_min = min(c_min, nums[mid])
+
+            if nums[mid] > nums[end]:
+
+                start = mid + 1
+            elif nums[mid] < nums[end]:
+                end = mid
             else:
-                print("Uncertain which side to search, reducing search space by 1.")
                 end -= 1
-
-        # Return the found minimum value
-        print("Found minimum.")
-        return nums[start]
 
 
 sol = Solution()
-print(sol.findMin([1, 3, 5]))
-print(sol.findMin([2, 2, 2, 0, 1]))
+
+print(sol.findMin([1, 3, 5]))  # 1
+print(sol.findMin([2, 2, 2, 0, 1]))  # 0
+print(sol.findMin([1, 1, 1, 1, 1, 1]))  # 1
