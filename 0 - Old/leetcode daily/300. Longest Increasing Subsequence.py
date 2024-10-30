@@ -3,11 +3,11 @@ https://leetcode.com/problems/longest-increasing-subsequence/
 
 300. Longest Increasing Subsequence
 
-Given an integer array nums, return the length of the longest strictly increasing 
+Given an integer array nums, return the length of the longest strictly increasing
 subsequence
 .
 
- 
+
 
 Example 1:
 
@@ -22,13 +22,13 @@ Example 3:
 
 Input: nums = [7,7,7,7,7,7,7]
 Output: 1
- 
+
 
 Constraints:
 
 1 <= nums.length <= 2500
 -104 <= nums[i] <= 104
- 
+
 
 Follow up: Can you come up with an algorithm that runs in O(n log(n)) time complexity?
 '''
@@ -39,25 +39,15 @@ from typing import List
 
 class Solution:
     def lengthOfLIS(self, nums: List[int]) -> int:
-        length = len(nums)
-        self.memo = {}
-        return self.solve(0, float('-inf'), length, nums)
+        n = len(nums)
+        dp = [1] * n  # Initialize DP array with 1s
 
-    def solve(self, idx, prev, length, nums):
-        if idx >= length:
-            return 0
+        for i in range(1, n):
+            for j in range(i):
+                if nums[j] < nums[i]:
+                    dp[i] = max(dp[i], dp[j] + 1)
 
-        if (idx, prev) in self.memo:
-            return self.memo[(idx, prev)]
-
-        taken = 0
-        if nums[idx] > prev:
-            taken = 1 + (self.solve(idx+1, nums[idx], length, nums))
-
-        not_taken = self.solve(idx+1, prev, length, nums)
-
-        self.memo[(idx, prev)] = max(taken, not_taken)
-        return self.memo[(idx, prev)]
+        return max(dp)
 
 
 sol = Solution()
