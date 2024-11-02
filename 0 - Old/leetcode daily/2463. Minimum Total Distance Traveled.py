@@ -88,41 +88,161 @@ from collections import deque
 
 
 class Solution:
-    def minimumTotalDistance(self, robot: List[int], factory: List[List[int]]) -> int:
-        # Sort positions to enable optimal matching
+    def minimumTotalDistance(self, robot, factory):
+        # Sort robots and factories by position
         robot.sort()
         factory.sort()
 
-        m, n = len(robot), len(factory)
-        # DP table initialization
-        dp = [[0]*(n+1) for _ in range(m+1)]
+        # Flatten factory positions according to their capacities
+        factory_positions = []
+        for f in factory:
+            for i in range(f[1]):
+                factory_positions.append(f[0])
 
-        # Base case: if no factories left, distance is infinite
-        for i in range(m):
-            dp[i][-1] = float('inf')
+        # Recursively calculate minimum total distance
+        return self._calculate_min_distance(0, 0, robot, factory_positions)
 
-        # Process each factory from right to left
-        for j in range(n-1, -1, -1):
-            prefix = 0
-            qq = deque([(m, 0)])
+    def _calculate_min_distance(
+        self, robot_idx, factory_idx, robot, factory_positions
+    ):
+        # All robots assigned
+        if robot_idx == len(robot):
+            return 0
+        # No factories left to assign
+        if factory_idx == len(factory_positions):
+            return 1e12
 
-            # Process each robot from right to left
-            for i in range(m-1, -1, -1):
-                # Add distance to current factory
-                prefix += abs(robot[i] - factory[j][0])
+        # Option 1: Assign current robot to current factory
+        assign = abs(
+            robot[robot_idx] - factory_positions[factory_idx]
+        ) + self._calculate_min_distance(
+            robot_idx + 1, factory_idx + 1, robot, factory_positions
+        )
 
-                # Remove elements outside factory limit window
-                if qq[0][0] > i+factory[j][1]:
-                    qq.popleft()
+        # Option 2: Skip current factory for the current robot
+        skip = self._calculate_min_distance(
+            robot_idx, factory_idx + 1, robot, factory_positions
+        )
 
-                # Maintain monotonic queue property
-                while qq and qq[-1][1] >= dp[i][j+1] - prefix:
-                    qq.pop()
+        # Take the option with the minimum distance
+        return min(assign, skip)
 
-                qq.append((i, dp[i][j+1] - prefix))
-                dp[i][j] = qq[0][1] + prefix
 
+class Solution:
+    def minimumTotalDistance(
+        self, robot: List[int], factory: List[List[int]]
+    ) -> int:
+        robot.sort()
+        factory.sort(key=lambda x: x[0])
+        factory_positions = []
+        for f in factory:
+            factory_positions.extend([f[0]] * f[1])
+        robot_count = len(robot)
+        factory_count = len(factory_positions)
+
+        dp = [[None] * (factory_count + 1) for _ in range(robot_count + 1)]
+
+        def _calculate_min_distance(robot_idx: int, factory_idx: int) -> int:
+            if dp[robot_idx][factory_idx] is not None:
+                return dp[robot_idx][factory_idx]
+            if robot_idx == robot_count:
+                dp[robot_idx][factory_idx] = 0
+                return 0
+            if factory_idx == factory_count:
+                dp[robot_idx][factory_idx] = int(1e12)
+                return int(1e12)
+
+            assign = abs(
+                robot[robot_idx] - factory_positions[factory_idx]
+            ) + _calculate_min_distance(robot_idx + 1, factory_idx + 1)
+
+            skip = _calculate_min_distance(robot_idx, factory_idx + 1)
+
+            dp[robot_idx][factory_idx] = min(assign, skip)
+            return dp[robot_idx][factory_idx]
+
+        return _calculate_min_distance(0, 0)
+
+
+class Solution:
+    def minimumTotalDistance(self, robot, factory):
+        # Sort robots and factories by position
+        robot.sort()
+        factory.sort(key=lambda x: x[0])
+
+        # Flatten factory positions according to their capacities
+        factory_positions = []
+        for f in factory:
+            for _ in range(f[1]):
+                factory_positions.append(f[0])
+
+        robot_count, factory_count = len(robot), len(factory_positions)
+        dp = [[0] * (factory_count + 1) for _ in range(robot_count + 1)]
+
+        # Initialize base cases
+        for i in range(robot_count):
+            dp[i][factory_count] = 1e12  # No factories left
+
+        # Fill DP table bottom-up
+        for i in range(robot_count - 1, -1, -1):
+            for j in range(factory_count - 1, -1, -1):
+                # Option 1: Assign current robot to current factory
+                assign = abs(robot[i] - factory_positions[j]
+                             ) + dp[i + 1][j + 1]
+
+                # Option 2: Skip current factory for the current robot
+                skip = dp[i][j + 1]
+
+                dp[i][j] = min(assign, skip)  # Take the minimum option
+
+        # Minimum distance starting from first robot and factory
         return dp[0][0]
+
+
+class Solution:
+    def minimumTotalDistance(
+        self, robots: List[int], factories: List[List[int]]
+    ) -> int:
+        # Sort robots and factories by position
+        robots.sort()
+        factories.sort()
+
+        # Flatten factory positions according to their capacities
+        factory_positions = []
+        for factory in factories:
+            for i in range(factory[1]):
+                factory_positions.append(factory[0])
+
+        robot_count = len(robots)
+        factory_count = len(factory_positions)
+        next_dist = [0 for _ in range(factory_count + 1)]
+        current = [0 for _ in range(factory_count + 1)]
+
+        # Fill DP table using two rows for optimization
+        for i in range(robot_count - 1, -1, -1):
+            # No factories left case
+            if i != robot_count - 1:
+                next_dist[factory_count] = 1e12
+
+            # Initialize current row
+            current[factory_count] = 1e12
+
+            for j in range(factory_count - 1, -1, -1):
+                # Assign current robot to current factory
+                assign = (
+                    abs(robots[i] - factory_positions[j]) + next_dist[j + 1]
+                )
+
+                # Skip current factory for this robot
+                skip = current[j + 1]
+                # Take the minimum option
+                current[j] = min(assign, skip)
+
+            # Move to next robot
+            next_dist = current[:]
+
+        # Return minimum distance starting from the first robot
+        return current[0]
 
 
 sol = Solution()
