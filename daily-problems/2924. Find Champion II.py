@@ -70,6 +70,8 @@ We need a list indegree to store the indegree of each of the N teams. Hence, the
 ------------------------------
 
 
+
+
 '''
 
 
