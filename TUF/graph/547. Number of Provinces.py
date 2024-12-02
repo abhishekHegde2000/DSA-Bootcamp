@@ -40,6 +40,7 @@ isConnected[i][j] == isConnected[j][i]
 
 from typing import List
 from collections import defaultdict
+from collections import deque
 
 
 class Solution:
@@ -66,6 +67,16 @@ class Solution:
                 for neighbor in adjacency_list[city]:
                     dfs(neighbor)
 
+        # Breadth-First Search (BFS) function to explore all cities in the same province
+        def bfs(start_city):
+            queue = deque([start_city])
+            while queue:
+                current_city = queue.popleft()
+                for neighbor in adjacency_list[current_city]:
+                    if neighbor not in visited_cities:
+                        visited_cities.add(neighbor)
+                        queue.append(neighbor)
+
         # Counter for the number of provinces
         province_count = 0
 
@@ -73,6 +84,7 @@ class Solution:
         for city in range(num_cities):
             if city not in visited_cities:
                 dfs(city)
+                # or bfs(city)
                 province_count += 1
 
         return province_count
@@ -83,6 +95,53 @@ class Solution:
 # Example usage:
 # sol = Solution()
 # print(sol.findCircleNum([[1,1,0],[1,1,0],[0,0,1]]))  # Output: 2
+
+
+sol = Solution()
+
+print(sol.findCircleNum([[1, 1, 0], [1, 1, 0], [0, 0, 1]]))  # 2
+print(sol.findCircleNum([[1, 0, 0], [0, 1, 0], [0, 0, 1]]))  # 3
+print(sol.findCircleNum([[1, 0, 0], [0, 1, 1], [0, 1, 1]]))  # 1
+
+
+# using union find
+
+
+class Solution:
+    def findCircleNum(self, isConnected: List[List[int]]) -> int:
+        # Number of cities
+        num_cities = len(isConnected)
+        # Initialize each city's parent to itself
+        parent = [i for i in range(num_cities)]
+
+        # Find function with path compression
+        def find(city):
+            if parent[city] != city:
+                parent[city] = find(parent[city])
+            return parent[city]
+
+        # Union function to connect two cities
+        def union(city1, city2):
+            root1 = find(city1)
+            root2 = find(city2)
+            parent[root1] = root2
+
+        # Connect cities based on the isConnected matrix
+        for i in range(num_cities):
+            for j in range(i, num_cities):
+                if isConnected[i][j] == 1:
+                    print(f"Connecting city {i} and city {j}")
+                    union(i, j)
+
+        # Apply path compression for all cities
+        for i in range(num_cities):
+            find(i)
+            print(f"City {i} has root {parent[i]}")
+
+        # The number of unique roots represents the number of provinces
+        unique_provinces = len(set(parent))
+        print(f"Unique provinces: {unique_provinces}")
+        return unique_provinces
 
 
 sol = Solution()

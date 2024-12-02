@@ -8,7 +8,9 @@ https://www.geeksforgeeks.org/detect-cycle-undirected-graph/
 
 '''
 
+
 from typing import List
+from collections import deque
 
 
 class Solution:
@@ -34,26 +36,35 @@ class Solution:
                 if dfs(i, -1, visited):
                     return True
 
-        # for bfs
-        def bfs(node, visited):
-            queue = [(node, -1)]
+        return False
+
+
+class Solution:
+    # Function to detect cycle in an undirected graph using BFS.
+    def isCycle(self, V: int, adj: List[List[int]]) -> bool:
+
+        def bfs(start):
+            queue = deque([(start, -1)])
+            visited[start] = True
 
             while queue:
-                node, parent = queue.pop(0)
-                visited[node] = True
+                node, parent = queue.popleft()
 
                 for nb in adj[node]:
                     if not visited[nb]:
+                        visited[nb] = True
                         queue.append((nb, node))
                     elif nb != parent:
                         return True
 
             return False
-        # for i in range(V):
-        #     if not visited[i]:
-        #         if bfs(i, visited):
-        #             return True
-        # return False
+
+        visited = [False] * V
+
+        for i in range(V):
+            if not visited[i]:
+                if bfs(i):
+                    return True
 
         return False
 
