@@ -5,7 +5,7 @@ https://leetcode.com/problems/permutations/description/?envType=study-plan-v2&en
 
 Given an array nums of distinct integers, return all the possible permutations. You can return the answer in any order.
 
- 
+
 
 Example 1:
 
@@ -19,7 +19,7 @@ Example 3:
 
 Input: nums = [1]
 Output: [[1]]
- 
+
 
 Constraints:
 
@@ -65,6 +65,28 @@ class Solution:
 
         # Return result
         return result
+
+
+class Solution:
+    def permute(self, nums: List[int]) -> List[List[int]]:
+        res = []
+
+        if len(nums) == 1:
+            return [nums[:]]
+
+        for i in range(len(nums)):
+            # Remove the current element
+            current_num = nums[i]
+            remaining_nums = nums[:i] + nums[i+1:]
+
+            # Generate permutations of the remaining numbers
+            remaining_perms = self.permute(remaining_nums)
+
+            # Insert the current number into each permutation
+            for perm in remaining_perms:
+                res.append([current_num] + perm)
+
+        return res
 
 
 sol = Solution()

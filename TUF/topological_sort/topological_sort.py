@@ -1,9 +1,4 @@
 '''
-https://www.geeksforgeeks.org/problems/topological-sort/1?utm_source=youtube&utm_medium=collab_striver_ytdescription&utm_campaign=topological-sort
-
-
-Topological sort
-Difficulty: MediumAccuracy: 56.52%Submissions: 245K+Points: 4
 Given an adjacency list for a Directed Acyclic Graph (DAG) where adj[u] contains a list of all vertices v such that there exists a directed edge u -> v. Return topological sort for the given graph.
 
 Topological sorting for Directed Acyclic Graph (DAG) is a linear ordering of vertices such that for every directed edge u -> v, vertex u comes before v in the ordering.
@@ -28,19 +23,11 @@ Constraints:
 2  ≤  V  ≤  103
 1  ≤  E  ≤  (V * (V - 1)) / 2
 
-Seen this question in a real interview before ?
-Yes
-No
-Company Tags
-Moonfrog LabsFlipkartMorgan StanleyAccoliteAmazonMicrosoftOYO RoomsSamsungD-E-ShawVisa
-Topic Tags
-GraphData Structures
-Related Interview Experiences
-De Shaw Interview Experience Off Campus 3
-Expected Complexities
-Time Complexity: O(V + E)Auxiliary Space: O(V)
 
 '''
+
+
+from collections import deque
 
 
 class Solution:
@@ -62,25 +49,46 @@ class Solution:
                 self.dfs(i, adj, vis, ans)
         return list(reversed(ans))
 
-    def bfs(self, adj, vis, ans, q):
+
+class Solution:
+    # Function to return list containing vertices in Topological order using BFS.
+    def topologicalSort(self, adj):
+        # Calculate the indegree of each vertex
+        V = len(adj)
+        indegree = [0] * V
+        for i in range(V):
+            for child in adj[i]:
+                indegree[child] += 1
+
+        # Initialize a queue with vertices having indegree 0
+        q = deque([i for i in range(V) if indegree[i] == 0])
+        ans = []
+
+        # Perform BFS
         while q:
-            node = q.pop(0)
+            node = q.popleft()
             ans.append(node)
             for child in adj[node]:
-                vis[child] -= 1
-                if vis[child] == 0:
+                indegree[child] -= 1
+                if indegree[child] == 0:
                     q.append(child)
 
-    def topologicalSortBFS(self, adj):
+        # If the length of the result is not equal to the number of vertices, it means there is a cycle and topological sort is not possible.
+        if len(ans) != V:
+            return []
 
-        vis = [0]*len(adj)
-        for i in range(len(adj)):
-            for child in adj[i]:
-                vis[child] += 1
-        q = []
-        for i in range(len(adj)):
-            if vis[i] == 0:
-                q.append(i)
-        ans = []
-        self.bfs(adj, vis, ans, q)
         return ans
+
+
+# Example usage:
+adj = [
+    [1, 2],  # Adjacency list for node 0
+    [3],     # Adjacency list for node 1
+    [3],     # Adjacency list for node 2
+    [4, 5],  # Adjacency list for node 3
+    [],      # Adjacency list for node 4
+    [],      # Adjacency list for node 5
+    []]      # Adjacency list for node 6
+
+solution = Solution()
+print(solution.topologicalSort(adj))  # Output: [0, 6, 1, 2, 3, 4, 5]

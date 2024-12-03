@@ -41,77 +41,53 @@ All the words in wordList are unique.
 The sum of all shortest transformation sequences does not exceed 105.
 '''
 
-
-from collections import deque
+from collections import defaultdict, deque
+from typing import List
 
 
 class Solution:
-    def bfs(self, endWord, wordset, wordList, queue, levelmap):
-        length = len(queue)
-        for _ in range(length):
-            u = queue.popleft()
-            curr = u[0]
-            if curr == endWord:
-                return levelmap
-            else:
-                for word in wordList:
-                    count = 0
-                    for i in range(len(curr)):
-                        if word[i] != curr[i]:
-                            count += 1
-
-                    if count == 1 and (word in wordset):
-                        queue.append([word, u[1]+1])
-                        wordset.remove(word)
-                        levelmap[word] = u[1]+1
-
-        if queue:
-            # for w in queue:
-            #     wordset.discard(w[0])
-            return self.bfs(endWord, wordset, wordList, queue, levelmap)
-        else:
-            return levelmap
-
-    def dfs(self, endWord, beginWord, levelmap):
-        if endWord == beginWord:
-            return [[beginWord]]
-        level = levelmap[endWord] - 1
-        trans = []
-        for k in levelmap.keys():
-            if levelmap[k] == level:
-                count = 0
-                for i in range(len(endWord)):
-                    if k[i] != endWord[i]:
-                        count += 1
-                if count == 1:
-                    result = self.dfs(k, beginWord, levelmap)
-                    for i in range(len(result)):
-                        result[i].append(endWord)
-                        trans.append(result[i])
-
-        return trans
-
     def findLadders(self, beginWord: str, endWord: str, wordList: List[str]) -> List[List[str]]:
-        rows = len(wordList)
-        if rows > 0:
-            cols = len(wordList[0])
-
         if endWord not in wordList:
             return []
-        if endWord == beginWord:
-            return [beginWord]
 
-        queue = deque()
-        queue.append([beginWord, 0])
-        # original_wordset = wordset
-        wordset = set(wordList)
-        wordset.discard(beginWord)
-        levelmap = {}
-        levelmap[beginWord] = 0
-        levelmap = self.bfs(endWord, wordset, wordList, queue, levelmap)
-        # return levelmap
-        if len(levelmap) == 1 or (levelmap.get(endWord) is None):
-            return []
+        # Append beginWord to wordList
+        wordList.append(beginWord)
 
-        all_trans = self.dfs(endWord, beginWord, levelmap)
-        return all_trans
+        # Create adjacency list for wildcard patterns
+        adj = defaultdict(list)
+        for word in wordList:
+            for j in range(len(word)):
+                pattern = word[:j] + '*' + word[j+1:]
+                adj[pattern].append(word)
+
+        # BFS initialization
+        layers = {}
+        layers[beginWord] = [[beginWord]]
+        q = deque([beginWord])
+        found = False
+
+        while q and not found:
+            next_layer = defaultdict(list)
+            for _ in range(len(q)):
+                word = q.popleft()
+                for j in range(len(word)):
+                    pattern = word[:j] + '*' + word[j+1:]
+                    for neiWord in adj[pattern]:
+                        if neiWord == endWord:
+                            found = True
+                        if neiWord not in layers:
+                            next_layer[neiWord] += [path + [neiWord]
+                                                    for path in layers[word]]
+            layers.update(next_layer)
+            q.extend(next_layer.keys())
+
+        return layers.get(endWord, [])
+
+
+# Example usage:
+sol = Solution()
+# [["hit","hot","dot","dog","cog"],["hit","hot","lot","log","cog"]]
+print(sol.findLadders("hit", "cog", [
+      "hot", "dot", "dog", "lot", "log", "cog"]))
+print(sol.findLadders("hit", "cog", ["hot", "dot", "dog", "lot", "log"]))  # []
+print(sol.findLadders("hot", "dog", ["hot", "dog"]))  # []
