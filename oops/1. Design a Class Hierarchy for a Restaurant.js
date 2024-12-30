@@ -14,6 +14,7 @@ Inheritance and Polymorphism
 Class Composition (if applicable)
 Encapsulation and Data Hiding
 Method Overriding
+
 2. Implement a Singleton Pattern for a Logger
 
 Requirements:
@@ -352,3 +353,77 @@ function testRestaurantClasses() {
 
 // Run the test cases
 testRestaurantClasses();
+
+// 2. Implement a Singleton Pattern for a Logger
+
+// Requirements:
+
+// Design a Logger class that ensures only one instance of the class exists throughout the application.
+// The Logger should have methods for logging different levels of information (e.g., logInfo(), logWarning(), logError()).
+// Consider using different logging strategies (e.g., console logging, file logging, database logging) and allowing users to configure the logging level.
+// Focus Areas:
+
+// Singleton Design Pattern
+// Encapsulation
+// Flexibility and Configurability
+
+class Logger {
+  static instance;
+
+  constructor() {
+    if (Logger.instance) {
+      return Logger.instance;
+    }
+
+    // Initialize logging strategies here (e.g., console, file, database)
+    this.logStrategies = [];
+    this.logLevel = "INFO"; // Default log level
+
+    Logger.instance = this;
+  }
+
+  // Add a logging strategy
+  addStrategy(strategy) {
+    this.logStrategies.push(strategy);
+  }
+
+  // Set the log level
+  setLogLevel(level) {
+    this.logLevel = level;
+  }
+
+  // Log methods (example)
+  logInfo(message) {
+    this.log("INFO", message);
+  }
+
+  logWarning(message) {
+    this.log("WARNING", message);
+  }
+
+  logError(message) {
+    this.log("ERROR", message);
+  }
+
+  log(level, message) {
+    if (this.logLevel === "ALL" || level >= this.logLevel) {
+      this.logStrategies.forEach((strategy) => {
+        strategy.log(level, message);
+      });
+    }
+  }
+}
+
+// Example of a logging strategy (console)
+class ConsoleLogger {
+  log(level, message) {
+    console.log(`[${level}] ${message}`);
+  }
+}
+
+// Example of usage
+const logger = Logger.getInstance(); // Get the singleton instance
+logger.addStrategy(new ConsoleLogger());
+logger.setLogLevel("DEBUG"); // Set log level
+logger.logInfo("This is an info message");
+logger.logError("This is an error message");

@@ -11,11 +11,9 @@ If the length of the array is 0, the function should return init.
 
 Please solve it without using the built-in Array.reduce method.
 
- 
-
 Example 1:
 
-Input: 
+Input:
 nums = [1,2,3,4]
 fn = function sum(accum, curr) { return accum + curr; }
 init = 0
@@ -29,7 +27,7 @@ initially, the value is init=0.
 The final answer is 10.
 Example 2:
 
-Input: 
+Input:
 nums = [1,2,3,4]
 fn = function sum(accum, curr) { return accum + curr * curr; }
 init = 100
@@ -43,13 +41,13 @@ initially, the value is init=100.
 The final answer is 130.
 Example 3:
 
-Input: 
+Input:
 nums = []
 fn = function sum(accum, curr) { return 0; }
 init = 25
 Output: 25
 Explanation: For empty arrays, the answer is always init.
- 
+
 
 Constraints:
 
@@ -59,9 +57,9 @@ Constraints:
 */
 
 var reduce = function (nums, fn, init) {
-    let result = init;
-    for (let i = 0; i < nums.length; i++) {
-        result = fn(result, nums[i]);
-    }
-    return result;
+  let result = init;
+  for (let i = 0; i < nums.length; i++) {
+    result = fn(result, nums[i]);
+  }
+  return result;
 };
