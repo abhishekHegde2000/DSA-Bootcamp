@@ -7,7 +7,7 @@ Given two integers n and k, return all possible combinations of k numbers chosen
 
 You may return the answer in any order.
 
- 
+
 
 Example 1:
 
@@ -20,7 +20,7 @@ Example 2:
 Input: n = 1, k = 1
 Output: [[1]]
 Explanation: There is 1 choose 1 = 1 total combination.
- 
+
 
 Constraints:
 
@@ -57,6 +57,21 @@ class Solution:
         generateCombinations(1, [])
         # Return the combinations
         return combinations
+
+
+class Solution:
+    def combine(self, n: int, k: int) -> List[List[int]]:
+
+        arr = [i for i in range(1, n + 1)]
+
+        def backtrack(start, path):
+            if len(path) == k:
+                res.append(path)
+                return
+            for i in range(start, len(arr)):
+                backtrack(i + 1, path + [arr[i]])
+
+        res = []
 
 
 solution = Solution()
