@@ -7,7 +7,7 @@ You are climbing a staircase. It takes n steps to reach the top.
 
 Each time you can either climb 1 or 2 steps. In how many distinct ways can you climb to the top?
 
- 
+
 
 Example 1:
 
@@ -24,7 +24,7 @@ Explanation: There are three ways to climb to the top.
 1. 1 step + 1 step + 1 step
 2. 1 step + 2 steps
 3. 2 steps + 1 step
- 
+
 
 Constraints:
 
@@ -112,3 +112,79 @@ sol = Solution()
 print(sol.climbStairs(2))  # 2
 print(sol.climbStairs(3))  # 3
 print(sol.climbStairs(4))  # 5
+
+# using top to bottom approach
+
+
+class Solution:
+    def climbStairs(self, total_stairs: int) -> int:
+
+        memo = {0: 1, 1: 1, 2: 2}
+
+        def climb_stairs(stairs):
+
+            if stairs in memo:
+                return memo[stairs]
+
+            climb_one = climb_stairs(stairs-1)
+            climb_two = climb_stairs(stairs-2)
+
+            memo[stairs] = climb_one + climb_two
+
+            return memo[stairs]
+
+        return climb_stairs(total_stairs)
+
+
+class Solution:
+    def climbStairs(self, total_stairs: int) -> int:
+
+        memo = {0: 1, 1: 1, 2: 2}
+
+        def climb_stairs(stairs):
+
+            if stairs in memo:
+                return memo[stairs]
+
+            if stairs > total_stairs:
+                return 0
+
+            if stairs == total_stairs:
+                return 1
+
+            climb_one = climb_stairs(stairs-1)
+            climb_two = climb_stairs(stairs-2)
+
+            memo[stairs] = climb_one + climb_two
+
+            return memo[stairs]
+
+        return climb_stairs(0)
+
+
+class Solution:
+    def climbStairs(self, total_stairs: int) -> int:
+        # Initialize previous_step and two_steps_back to 1
+        previous_step, two_steps_back = 1, 1
+        print(
+            f"Initial values - Previous step: {previous_step}, Two steps back: {two_steps_back}")
+
+        # For each number of stairs from 2 to total_stairs
+        for _ in range(total_stairs - 1):
+            # Calculate the number of ways to climb the current number of stairs
+            print(f"Calculating the number of ways to climb the current number of stairs")
+            temp = previous_step
+            previous_step = previous_step + two_steps_back
+            two_steps_back = temp
+            print(
+                f"Updated values - Previous step: {previous_step}, Two steps back: {two_steps_back}")
+
+        # Return the number of ways to climb total_stairs
+        print(f"Returning the number of ways to climb {
+              total_stairs} stairs: {previous_step}")
+        return previous_step
+
+
+sol = Solution()
+
+print(sol.climbStairs(5))  # 8
