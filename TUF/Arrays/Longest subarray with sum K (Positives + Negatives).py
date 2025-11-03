@@ -42,6 +42,6 @@ def getLongestSubarray2(nums: List[int], k: int) -> int:
     return max_len
 
 
-getLongestSubarray([1, 2, 3, 7, 5], 12)
+print(getLongestSubarray([1, 2, 3, 7, 5], 12))
 getLongestSubarray2([1, 2, 3, 1], 3)
 
